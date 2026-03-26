@@ -1,0 +1,71 @@
+name: QMK Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      keyboard:
+        description: 'Keyboard path (e.g. "bastardkb/charybdis/4x6/v2/splinky_2")'
+        required: true
+        default: 'bastardkb/charybdis/4x6/v2/splinky_2'
+      keymap:
+        description: 'Keymap name (e.g. "default")'
+        required: true
+        default: 'wellum'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          
+      - name: Install QMK
+        run: |
+          python3 -m pip install qmk
+          qmk setup -y
+        
+      - name: Compile firmware
+        id: compile
+        run: |
+          echo "Starting compilation... "
+          qmk -v compile -kb ${{ github.event.inputs.keyboard }} -km ${{ github.event.inputs.keymap }}
+          EXIT_CODE=$?
+          echo "Compilation completed with exit code $EXIT_CODE "
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "::error::Compilation failed with exit code $EXIT_CODE"
+            exit $EXIT_CODE
+          fi
+          
+      - name: List build directory
+        if: always()
+        run: |
+          echo "Checking build directory contents... "
+          pwd
+          ls -la
+          if [ -d ".build" ]; then
+            echo "Contents of .build directory: "
+            find .build -ls
+          else
+            echo ".build directory does not exist "
+          fi
+          
+          echo "Searching for firmware files in entire workspace... "
+          find . -name "*.uf2" -o -name "*.hex" -o -name "*.bin"
+        
+      - name: Upload firmware
+        if: success() && steps.compile.conclusion == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: |
+            .build/**/*.uf2
+            .build/**/*.hex
+            .build/**/*.bin
+          if-no-files-found: error
