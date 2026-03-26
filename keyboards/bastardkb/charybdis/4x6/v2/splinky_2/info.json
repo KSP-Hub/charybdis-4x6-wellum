@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "Charybdis 4x6",
+    "url": "https://bastardkb.com",
+    "maintainer": "bastardkb",
+    "width": 12,
+    "height": 4,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "1", "x": 0, "y": 0}, {"label": "2", "x": 1, "y": 0}, {"label": "3", "x": 2, "y": 0}, {"label": "4", "x": 3, "y": 0}, {"label": "5", "x": 4, "y": 0}, {"label": "6", "x": 5, "y": 0},
+                {"label": "7", "x": 0, "y": 1}, {"label": "8", "x": 1, "y": 1}, {"label": "9", "x": 2, "y": 1}, {"label": "0", "x": 3, "y": 1}, {"label": "-", "x": 4, "y": 1}, {"label": "=", "x": 5, "y": 1},
+                {"label": "Q", "x": 0, "y": 2}, {"label": "W", "x": 1, "y": 2}, {"label": "E", "x": 2, "y": 2}, {"label": "R", "x": 3, "y": 2}, {"label": "T", "x": 4, "y": 2}, {"label": "Y", "x": 5, "y": 2},
+                {"label": "A", "x": 0, "y": 3}, {"label": "S", "x": 1, "y": 3}, {"label": "D", "x": 2, "y": 3}, {"label": "F", "x": 3, "y": 3}, {"label": "G", "x": 4, "y": 3}, {"label": "H", "x": 5, "y": 3}
+            ]
+        }
+    }
+}
