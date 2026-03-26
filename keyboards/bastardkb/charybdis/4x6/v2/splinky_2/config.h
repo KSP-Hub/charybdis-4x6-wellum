@@ -21,7 +21,7 @@
 
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 58
-#define RGB_MATRIX_SPLIT { 29, 29 }  // КРИТИЧЕСКИ ВАЖНОЕ ИСПРАВЛЕНИЕ!
+#define RGB_MATRIX_SPLIT { 29, 29 }
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
